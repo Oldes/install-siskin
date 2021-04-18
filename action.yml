@@ -1,0 +1,56 @@
+name: 'Install Siskin'
+author: 'Oldes'
+description: 'GitHub Action to install Siskin Builder tool'
+
+inputs:
+  version:
+    description: 'Siskin version to download'
+    required: true
+    default: '0.3.3'
+  arch:
+    description: 'Required architecture (x32 or x64)'
+    required: true
+    default: 'x64' # so far only x32 is available
+
+outputs:
+  SISKIN:
+    description: "Path to Siskin executable"
+    value: ${{ steps.download-siskin.outputs.SISKIN }}
+runs:
+  using: "composite"
+  steps:
+    - id: download-siskin
+      name: Downloading Siskin
+      shell: bash
+      env:
+        URL: https://github.com/Siskin-framework/Builder/releases/download
+        FILEBASE: Siskin-${{ inputs.arch }}
+      run: |
+        echo Expected version: $VERSION
+        export DOWNLOAD_URL=$URL/$VERSION
+
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          export FILE=${FILEBASE}-libc
+          echo Dowloading: $DOWNLOAD_URL/${FILE}.gz
+          wget -q $DOWNLOAD_URL/${FILE}.gz
+          gunzip ./${FILE}.gz
+          mv ./${FILE} ./siskin
+          chmod +x ./siskin
+          echo "::set-output name=SISKIN::$(realpath siskin)"
+
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          export FILE=${FILEBASE}-osx
+          echo Dowloading: $DOWNLOAD_URL/${FILE}.gz
+          wget -q $DOWNLOAD_URL/${FILE}.gz
+          gunzip ./${FILE}.gz
+          mv ./${FILE} ./siskin
+          chmod +x ./siskin
+          echo "::set-output name=SISKIN::$(echo $PWD/siskin)"
+        
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          export FILE=${FILEBASE}.exe
+          echo Downloading: $DOWNLOAD_URL/$FILE
+          curl -sSLJO $DOWNLOAD_URL/$FILE
+          mv ./$FILE ./siskin.exe
+          echo "::set-output name=SISKIN::$(realpath siskin.exe)"
+        fi
