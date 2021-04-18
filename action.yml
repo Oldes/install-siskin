@@ -2,6 +2,10 @@ name: 'Install Siskin'
 author: 'Oldes'
 description: 'GitHub Action to install Siskin Builder tool'
 
+branding:
+  icon: 'download-cloud'  
+  color: 'red'
+
 inputs:
   version:
     description: 'Siskin version to download'
