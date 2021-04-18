@@ -17,6 +17,9 @@ jobs:
     - id: download-siskin
       name: Downloading Siskin Builder
       uses: ./
+      with:
+        name: builder
+        
     - name: Test Siskin Builder
       env:
           SISKIN: ${{ steps.download-siskin.outputs.SISKIN }}

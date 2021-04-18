@@ -11,6 +11,10 @@ inputs:
     description: 'Required architecture (x32 or x64)'
     required: true
     default: 'x64' # so far only x32 is available
+  name:
+    description: 'Local file name'
+    required: true
+    default: 'siskin'
 
 outputs:
   SISKIN:
@@ -26,6 +30,7 @@ runs:
         URL: https://github.com/Siskin-framework/Builder/releases/download
         VERSION: ${{ inputs.version }}
         FILEBASE: Siskin-${{ inputs.arch }}
+        NAME: ${{ inputs.name }}
       run: |
         echo Expected version: $VERSION
         export DOWNLOAD_URL=$URL/$VERSION
@@ -35,23 +40,23 @@ runs:
           echo Dowloading: $DOWNLOAD_URL/${FILE}.gz
           wget -q $DOWNLOAD_URL/${FILE}.gz
           gunzip ./${FILE}.gz
-          mv ./${FILE} ./siskin
-          chmod +x ./siskin
-          echo "::set-output name=SISKIN::$(realpath siskin)"
+          mv ./${FILE} ./$NAME
+          chmod +x ./$NAME
+          echo "::set-output name=SISKIN::$(realpath $NAME)"
 
         elif [ "$RUNNER_OS" == "macOS" ]; then
           export FILE=${FILEBASE}-osx
           echo Dowloading: $DOWNLOAD_URL/${FILE}.gz
           wget -q $DOWNLOAD_URL/${FILE}.gz
           gunzip ./${FILE}.gz
-          mv ./${FILE} ./siskin
-          chmod +x ./siskin
-          echo "::set-output name=SISKIN::$(echo $PWD/siskin)"
+          mv ./${FILE} ./$NAME
+          chmod +x ./$NAME
+          echo "::set-output name=SISKIN::$(echo $PWD/$NAME)"
         
         elif [ "$RUNNER_OS" == "Windows" ]; then
           export FILE=${FILEBASE}.exe
           echo Downloading: $DOWNLOAD_URL/$FILE
           curl -sSLJO $DOWNLOAD_URL/$FILE
-          mv ./$FILE ./siskin.exe
-          echo "::set-output name=SISKIN::$(realpath siskin.exe)"
+          mv ./$FILE ./$NAME.exe
+          echo "::set-output name=SISKIN::$(realpath $NAME.exe)"
         fi
