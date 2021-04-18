@@ -19,6 +19,8 @@ These inputs are allowed:
 
  - `version` -- an available Builder release version (for example: `0.3.3`)
    _Default:_ empty; installs Builder version `0.3.3`.
+ - `name` -- an optional local file name
+   _Default:_ empty; used name `siskin`.
 
 ### Working Example
 
