@@ -24,6 +24,7 @@ runs:
       shell: bash
       env:
         URL: https://github.com/Siskin-framework/Builder/releases/download
+        VERSION: ${{ inputs.version }}
         FILEBASE: Siskin-${{ inputs.arch }}
       run: |
         echo Expected version: $VERSION
