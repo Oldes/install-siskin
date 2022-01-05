@@ -12,13 +12,13 @@ to a virtual machine of GitHub Actions.
 Include this in your workflow:
 
 ```yml
- - uses: oldes/install-siskin@v0.6.0
+ - uses: oldes/install-siskin@v0.7.1
 ```
 
 These inputs are allowed:
 
- - `version` -- an available Builder release version (for example: `0.6.0`)
-   _Default:_ empty; installs Builder version `0.6.0`.
+ - `version` -- an available Builder release version (for example: `0.7.1`)
+   _Default:_ empty; installs Builder version `0.7.1`.
  - `name` -- an optional local file name
    _Default:_ empty; used name `siskin`.
 
@@ -40,7 +40,7 @@ jobs:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
     steps:
     - uses: actions/checkout@v2
-    - uses: oldes/install-siskin@v0.6.0
+    - uses: oldes/install-siskin@v0.7.1
     - name: Test if Siskin Builder was downloaded
       run: ./siskin --help
       shell: bash
