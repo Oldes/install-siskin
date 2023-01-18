@@ -46,7 +46,7 @@ runs:
           gunzip ./${FILE}.gz
           mv ./${FILE} ./$NAME
           chmod +x ./$NAME
-          echo "::set-output name=SISKIN::$(realpath $NAME)"
+          echo "SISKIN=$(realpath $NAME)" >> $GITHUB_OUTPUT
 
         elif [ "$RUNNER_OS" == "macOS" ]; then
           export FILE=${FILEBASE}-osx
@@ -55,12 +55,12 @@ runs:
           gunzip ./${FILE}.gz
           mv ./${FILE} ./$NAME
           chmod +x ./$NAME
-          echo "::set-output name=SISKIN::$(echo $PWD/$NAME)"
+          echo "SISKIN=$(echo $PWD/$NAME)" >> $GITHUB_OUTPUT
         
         elif [ "$RUNNER_OS" == "Windows" ]; then
           export FILE=${FILEBASE}.exe
           echo Downloading: $DOWNLOAD_URL/$FILE
           curl -sSLJO $DOWNLOAD_URL/$FILE
           mv ./$FILE ./$NAME.exe
-          echo "::set-output name=SISKIN::$(realpath $NAME.exe)"
+          echo "SISKIN=$(realpath $NAME.exe)" >> $GITHUB_OUTPUT
         fi
