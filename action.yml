@@ -10,11 +10,11 @@ inputs:
   version:
     description: 'Siskin version to download'
     required: true
-    default: '0.7.1'
+    default: '0.7.2'
   arch:
-    description: 'Required architecture (x32 or x64)'
+    description: 'Required architecture (x86 or x64)'
     required: true
-    default: 'x64' # so far only x32 is available
+    default: 'x64'
   name:
     description: 'Local file name'
     required: true
