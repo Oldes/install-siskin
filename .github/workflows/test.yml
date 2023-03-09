@@ -1,4 +1,4 @@
-name: 'Test Rebol download'
+name: 'Test Siskin download'
 on:
   push:
     branches: [ master ]
@@ -14,11 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - id: download-rebol
-      name: Downloading Rebol
+    - id: download-siskin
+      name: Downloading Siskin Builder
       uses: ./
-    - name: Test Rebol
+    - name: Test Siskin Builder
       env:
-          REBOL3: ${{ steps.download-rebol.outputs.REBOL3 }}
-      run: $REBOL3 -v
+          SISKIN: ${{ steps.download-siskin.outputs.SISKIN }}
+      run: $SISKIN
       shell: bash
