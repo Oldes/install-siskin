@@ -33,6 +33,7 @@ runs:
       env:
         URL: https://github.com/Siskin-Framework/Builder/releases/download
         VERSION: ${{ inputs.version }}
+        NAME: ${{ inputs.name }}
       run: |
         echo Expected version: $VERSION
         export DOWNLOAD_URL=$URL/$VERSION
