@@ -10,11 +10,11 @@ inputs:
   version:
     description: 'Siskin version to download'
     required: true
-    default: '0.7.2'
+    default: '0.10.4'
   arch:
-    description: 'Required architecture (x86 or x64)'
+    description: 'Required architecture (x86, x86_64, aarch64)'
     required: true
-    default: 'x64'
+    default: 'x86_64'
   name:
     description: 'Local file name'
     required: true
@@ -31,16 +31,14 @@ runs:
       name: Downloading Siskin
       shell: bash
       env:
-        URL: https://github.com/Siskin-framework/Builder/releases/download
+        URL: https://github.com/Siskin-Framework/Builder/releases/download
         VERSION: ${{ inputs.version }}
-        FILEBASE: Siskin-${{ inputs.arch }}
-        NAME: ${{ inputs.name }}
       run: |
         echo Expected version: $VERSION
         export DOWNLOAD_URL=$URL/$VERSION
 
         if [ "$RUNNER_OS" == "Linux" ]; then
-          export FILE=${FILEBASE}-libc
+          export FILE=siskin-linux-${{ inputs.arch }}
           echo Dowloading: $DOWNLOAD_URL/${FILE}.gz
           wget -q $DOWNLOAD_URL/${FILE}.gz
           gunzip ./${FILE}.gz
@@ -49,7 +47,7 @@ runs:
           echo "SISKIN=$(realpath $NAME)" >> $GITHUB_OUTPUT
 
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          export FILE=${FILEBASE}-osx
+          export FILE=siskin-macos-${{ inputs.arch }}
           echo Dowloading: $DOWNLOAD_URL/${FILE}.gz
           wget -q $DOWNLOAD_URL/${FILE}.gz
           gunzip ./${FILE}.gz
@@ -58,7 +56,7 @@ runs:
           echo "SISKIN=$(echo $PWD/$NAME)" >> $GITHUB_OUTPUT
         
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          export FILE=${FILEBASE}.exe
+          export FILE=siskin-windows-${{ inputs.arch }}.exe
           echo Downloading: $DOWNLOAD_URL/$FILE
           curl -sSLJO $DOWNLOAD_URL/$FILE
           mv ./$FILE ./$NAME.exe
