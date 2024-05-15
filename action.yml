@@ -10,7 +10,7 @@ inputs:
   version:
     description: 'Siskin version to download'
     required: true
-    default: '0.16.0'
+    default: '0.17.0'
   arch:
     description: 'Required architecture (x86, x86_64, aarch64)'
     required: true
