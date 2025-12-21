@@ -17,7 +17,7 @@ Include this in your workflow:
 
 These inputs are allowed:
 
- - `version` -- an available Builder release version (for example: `0.21.0`)
+ - `version` -- an available Builder release version (for example: `0.21.0`)  
    _Default:_ empty; installs Builder version `0.21.0`.
  - `name` -- an optional local file name
    _Default:_ empty; used name `siskin`.
@@ -46,4 +46,5 @@ jobs:
       shell: bash
 ```
 
-Real life usage example can be seen for example at this [Build Rebol workflow](https://github.com/Siskin-framework/Rebol/actions/runs/760323990/workflow).
+Real life usage example can be seen for example at this [Build Rebol workflow](https://github.com/Siskin-framework/Rebol/blob/master/.github/workflows/main.yml).
+
